@@ -21,9 +21,11 @@ class FfmpegSkyzyx < Formula
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
+  depends_on "fribidi"
   depends_on "git"
   depends_on "glib"
   depends_on "gnutls"
+  depends_on "harfbuzz"
   depends_on "lame"
   depends_on "libaacs"
   depends_on "libass"
@@ -225,7 +227,9 @@ class FfmpegSkyzyx < Formula
       --enable-libfdk-aac
       --enable-libfontconfig
       --enable-libfreetype
+      --enable-libfribidi
       --enable-libgsm
+      --enable-libharfbuzz
       --enable-libmodplug
       --enable-libmp3lame
       --enable-libopencore-amrnb
@@ -296,9 +300,7 @@ class FfmpegSkyzyx < Formula
       --host-ldflags=#{ENV.ldflags}
     ]
 
-    if OS.mac?
-      args << "--enable-neon" if Hardware::CPU.arm?
-    end
+    args << "--enable-neon" if OS.mac? && Hardware::CPU.arm?
 
     system "./configure", *args
     system "make", "install"
