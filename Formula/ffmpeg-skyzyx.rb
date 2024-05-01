@@ -32,7 +32,6 @@ class FfmpegSkyzyx < Formula
   depends_on "libbluray"
   depends_on "libffi"
   depends_on "libgsm"
-  depends_on "libiconv"
   depends_on "libmodplug"
   depends_on "librsvg"
   depends_on "libsoxr"
@@ -73,6 +72,10 @@ class FfmpegSkyzyx < Formula
 
   on_intel do
     depends_on "nasm" => :build
+  end
+
+  on_macos do
+    depends_on "libiconv"
   end
 
   conflicts_with "ffmpeg", because: "ffmpeg-skyzyx also ships a ffmpeg binary"
