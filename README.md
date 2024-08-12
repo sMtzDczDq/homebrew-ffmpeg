@@ -44,7 +44,7 @@ GLIB_CFLAGS="-I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include" \
 GLIB_LIBS="-lglib-2.0 -lgio-2.0" \
 PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig:/opt/X11/lib/pkgconfig \
 ./configure \
-    --prefix=/opt/homebrew/Cellar/ffmpeg-skyzyx/7.0 
+    --prefix=/usr/local/Cellar/ffmpeg-skyzyx/7.0.1 
     --disable-htmlpages 
     --disable-indev=jack 
     --disable-libjack 
@@ -157,7 +157,9 @@ PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig:/op
     --enable-libfdk-aac 
     --enable-libfontconfig 
     --enable-libfreetype 
+    --enable-libfribidi 
     --enable-libgsm 
+    --enable-libharfbuzz 
     --enable-libmodplug 
     --enable-libmp3lame 
     --enable-libopencore-amrnb 
@@ -216,7 +218,6 @@ PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig:/op
     --enable-opencl 
     --enable-pthreads 
     --enable-shared 
-    --enable-small 
     --enable-version3 
     --enable-videotoolbox 
     --extra-version=skyzyx 
