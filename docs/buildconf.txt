@@ -1,4 +1,4 @@
---prefix=/opt/homebrew/Cellar/ffmpeg-skyzyx/7.0
+--prefix=/usr/local/Cellar/ffmpeg-skyzyx/7.0.1
 --disable-htmlpages
 --disable-indev=jack
 --disable-libjack
@@ -111,7 +111,9 @@
 --enable-libfdk-aac
 --enable-libfontconfig
 --enable-libfreetype
+--enable-libfribidi
 --enable-libgsm
+--enable-libharfbuzz
 --enable-libmodplug
 --enable-libmp3lame
 --enable-libopencore-amrnb
@@ -170,7 +172,6 @@
 --enable-opencl
 --enable-pthreads
 --enable-shared
---enable-small
 --enable-version3
 --enable-videotoolbox
 --extra-version=skyzyx
