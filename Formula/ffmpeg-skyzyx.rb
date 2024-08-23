@@ -32,7 +32,6 @@ class FfmpegSkyzyx < Formula
   depends_on "libbluray"
   depends_on "libffi"
   depends_on "libgsm"
-  depends_on "libiconv"
   depends_on "libmodplug"
   depends_on "librsvg"
   depends_on "libsoxr"
@@ -70,6 +69,10 @@ class FfmpegSkyzyx < Formula
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
+
+  on_macos do
+    depends_on "libiconv"
+  end
 
   on_intel do
     depends_on "nasm" => :build
