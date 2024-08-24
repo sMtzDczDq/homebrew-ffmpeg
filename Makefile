@@ -2,14 +2,14 @@
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
     $(info Linux)
-	AWK="$(command -v awk)"
-	GREP="$(command -v grep)"
-	NPROC="$(command -v nproc)"
-	SED="$(command -v sed)"
-	SORT="$(command -v sort)"
-	TEE="$(command -v tee)"
-	UNIQ="$(command -v uniq)"
-	XARGS="$(command -v xargs)"
+	AWK="$(shell command -v awk)"
+	GREP="$(shell command -v grep)"
+	NPROC="$(shell command -v nproc)"
+	SED="$(shell command -v sed)"
+	SORT="$(shell command -v sort)"
+	TEE="$(shell command -v tee)"
+	UNIQ="$(shell command -v uniq)"
+	XARGS="$(shell command -v xargs)"
 endif
 ifeq ($(UNAME_S),Darwin)
     $(info macOS)
