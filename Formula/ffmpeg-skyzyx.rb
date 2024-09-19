@@ -74,6 +74,10 @@ class FfmpegSkyzyx < Formula
     depends_on "libiconv"
   end
 
+  on_linux do
+    depends_on "opencl-icd-loader"
+  end
+
   on_intel do
     depends_on "nasm" => :build
   end
@@ -123,7 +127,6 @@ class FfmpegSkyzyx < Formula
       --disable-libjack
       --disable-podpages
       --disable-txtpages
-      --enable-audiotoolbox
       --enable-decoder=aac
       --enable-decoder=ac3
       --enable-decoder=alac
@@ -188,8 +191,6 @@ class FfmpegSkyzyx < Formula
       --enable-encoder=flac
       --enable-encoder=flv
       --enable-encoder=gif
-      --enable-encoder=h264_videotoolbox
-      --enable-encoder=hevc_videotoolbox
       --enable-encoder=jpeg2000
       --enable-encoder=libaom_av1
       --enable-encoder=libmp3lame
@@ -219,10 +220,6 @@ class FfmpegSkyzyx < Formula
       --enable-frei0r
       --enable-gnutls
       --enable-gpl
-      --enable-hwaccel=h264_videotoolbox
-      --enable-hwaccel=hevc_videotoolbox
-      --enable-hwaccel=mpeg2_videotoolbox
-      --enable-hwaccel=mpeg4_videotoolbox
       --enable-libaom
       --enable-libass
       --enable-libbluray
@@ -292,7 +289,6 @@ class FfmpegSkyzyx < Formula
       --enable-pthreads
       --enable-shared
       --enable-version3
-      --enable-videotoolbox
       --extra-version=skyzyx
       --cc=#{ENV.cc}
       --cxx=#{ENV.cxx}
@@ -301,8 +297,11 @@ class FfmpegSkyzyx < Formula
       --host-cflags=#{ENV.cflags}
       --host-ldflags=#{ENV.ldflags}
     ]
-
-    args << "--enable-neon" if OS.mac? && Hardware::CPU.arm?
+    if OS.mac?
+      args << "--enable-audiotoolbox"
+      args << "--enable-videotoolbox"
+      args << "--enable-neon" if Hardware::CPU.arm?
+    end
 
     system "./configure", *args
     system "make", "install"
