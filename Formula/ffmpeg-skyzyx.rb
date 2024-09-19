@@ -55,6 +55,7 @@ class FfmpegSkyzyx < Formula
   depends_on "tesseract"
   depends_on "theora"
   depends_on "two-lame"
+  depends_on "vulkan-headers"
   depends_on "wavpack"
   depends_on "webp"
   depends_on "wget"
@@ -285,6 +286,7 @@ class FfmpegSkyzyx < Formula
       --enable-muxer=webp
       --enable-muxer=webvtt
       --enable-nonfree
+      --enable-vulkan
       --enable-opencl
       --enable-pthreads
       --enable-shared
