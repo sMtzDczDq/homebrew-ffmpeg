@@ -55,6 +55,7 @@ class FfmpegSkyzyx < Formula
   depends_on "tesseract"
   depends_on "theora"
   depends_on "two-lame"
+  depends_on "vulkan-headers"
   depends_on "wavpack"
   depends_on "webp"
   depends_on "wget"
@@ -293,6 +294,7 @@ class FfmpegSkyzyx < Formula
       --enable-shared
       --enable-version3
       --enable-videotoolbox
+      --enable-vulkan
       --extra-version=skyzyx
       --cc=#{ENV.cc}
       --cxx=#{ENV.cxx}
