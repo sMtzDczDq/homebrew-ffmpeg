@@ -1,8 +1,8 @@
 class FfmpegSkyzyx < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org//releases/ffmpeg-7.0.2.tar.xz"
-  sha256 "8646515b638a3ad303e23af6a3587734447cb8fc0a0c064ecdb8e95c4fd8b389"
+  url "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz"
+  sha256 "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   depends_on "make" => :build
@@ -92,7 +92,7 @@ class FfmpegSkyzyx < Formula
     # Work around Xcode 11 clang bug
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     # https://trac.ffmpeg.org/ticket/8073#comment:12
-    ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
+   # ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
 
     # Work around Xcode 15 bug
     # https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/commit/52b300990077c719e64311cea0b763bf83a4e2f7
