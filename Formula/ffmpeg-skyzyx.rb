@@ -39,6 +39,7 @@ class FfmpegSkyzyx < Formula
   depends_on "libvo-aacenc"
   depends_on "libvorbis"
   depends_on "libvpx"
+  depends_on "openal-soft"
   depends_on "opencore-amr"
   depends_on "openh264"
   depends_on "openjpeg"
@@ -68,6 +69,7 @@ class FfmpegSkyzyx < Formula
 
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
+  uses_from_macos "libiconv"
   uses_from_macos "zlib"
 
   on_intel do
@@ -189,7 +191,6 @@ class FfmpegSkyzyx < Formula
       --enable-encoder=jpeg2000
       --enable-encoder=libaom_av1
       --enable-encoder=libmp3lame
-      --enable-encoder=libsvtav1
       --enable-encoder=libtheora
       --enable-encoder=libvorbis
       --enable-encoder=libvpx_vp8
@@ -259,7 +260,6 @@ class FfmpegSkyzyx < Formula
       --enable-muxer=ac3
       --enable-muxer=apng
       --enable-muxer=ass
-      --enable-muxer=av1
       --enable-muxer=dash
       --enable-muxer=flac
       --enable-muxer=flv
@@ -284,6 +284,7 @@ class FfmpegSkyzyx < Formula
       --enable-muxer=webp
       --enable-muxer=webvtt
       --enable-nonfree
+      --enable-openal
       --enable-opencl
       --enable-pthreads
       --enable-shared
@@ -306,10 +307,8 @@ class FfmpegSkyzyx < Formula
 
     # Build and install additional FFmpeg tools
     system "make", "alltools"
-    bin.install Dir["tools/*"].select { |f| File.executable? f }
-
-    # Fix for Non-executables that were installed to bin/
-    mv bin/"python", pkgshare/"python", force: true
+    bin.install (buildpath/"tools").children.select { |f| f.file? && f.executable? }
+    pkgshare.install buildpath/"tools/python"
   end
 
   test do
