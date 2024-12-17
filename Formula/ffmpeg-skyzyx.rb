@@ -70,10 +70,6 @@ class FfmpegSkyzyx < Formula
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
-  on_macos do
-    depends_on "libiconv"
-  end
-
   on_intel do
     depends_on "nasm" => :build
   end
