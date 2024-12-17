@@ -3,12 +3,11 @@ class FfmpegSkyzyx < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz"
   sha256 "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
-  head "https://github.com/FFmpeg/FFmpeg.git"
+  head "https://github.com/FFmpeg/FFmpeg.git" , branch: "master"
 
-  depends_on "make" => :build
-  depends_on "nasm" => :build
   depends_on "pkg-config" => :build
   depends_on "texi2html" => :build
+
   depends_on "aom"
   depends_on "automake"
   depends_on "coreutils"
@@ -96,7 +95,7 @@ class FfmpegSkyzyx < Formula
 
     # Work around Xcode 15 bug
     # https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/commit/52b300990077c719e64311cea0b763bf83a4e2f7
-    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+   # ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     # # FreeType
     # ENV.append_to_cflags `freetype-config --cflags`
