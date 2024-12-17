@@ -9,49 +9,71 @@ class FfmpegSkyzyx < Formula
   depends_on "texi2html" => :build
 
   depends_on "aom"
+  depends_on "aribb24"
   depends_on "automake"
+  depends_on "chromaprint"
   depends_on "coreutils"
   depends_on "dav1d"
   depends_on "dwarf"
   depends_on "dwarfutils"
   depends_on "faac"
-  depends_on "fdk-aac"
   depends_on "fdk-aac-encoder"
+  depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
   depends_on "fribidi"
+  depends_on "game-music-emu"
   depends_on "git"
   depends_on "glib"
-  depends_on "gnutls"
   depends_on "harfbuzz"
+  depends_on "jack"
+  depends_on "jpeg-xl"
   depends_on "lame"
   depends_on "libaacs"
+  depends_on "libaribcaption"
   depends_on "libass"
   depends_on "libbluray"
+  depends_on "libbs2b"
+  depends_on "libcaca"
+  depends_on "libdvdnav"
+  depends_on "libdvdread"
   depends_on "libffi"
   depends_on "libgsm"
   depends_on "libmodplug"
+  depends_on "libopenmpt"
+  depends_on "libplacebo"
+  depends_on "librist"
   depends_on "librsvg"
   depends_on "libsoxr"
+  depends_on "libssh"
+  depends_on "libtensorflow"
   depends_on "libtool"
   depends_on "libvidstab"
+  depends_on "libvmaf"
   depends_on "libvo-aacenc"
   depends_on "libvorbis"
   depends_on "libvpx"
+  depends_on "libx11"
+  depends_on "libxcb"
+  depends_on "libxml2"
   depends_on "openal-soft"
   depends_on "opencore-amr"
   depends_on "openh264"
   depends_on "openjpeg"
+  depends_on "openssl"
+  depends_on "openvino"
   depends_on "opus"
+  depends_on "rav1e"
   depends_on "rtmpdump"
   depends_on "rubberband"
-  depends_on "sdl12-compat"
   depends_on "sdl2"
+  depends_on "sdl12-compat"
   depends_on "shtool"
   depends_on "snappy"
   depends_on "speex"
   depends_on "srt"
+  depends_on "svt-av1"
   depends_on "tesseract"
   depends_on "theora"
   depends_on "two-lame"
@@ -122,6 +144,7 @@ class FfmpegSkyzyx < Formula
       --disable-podpages
       --disable-txtpages
       --enable-audiotoolbox
+      --enable-chromaprint
       --enable-decoder=aac
       --enable-decoder=ac3
       --enable-decoder=alac
@@ -214,39 +237,53 @@ class FfmpegSkyzyx < Formula
       --enable-ffprobe
       --enable-fontconfig
       --enable-frei0r
-      --enable-gnutls
       --enable-gpl
       --enable-hwaccel=h264_videotoolbox
       --enable-hwaccel=hevc_videotoolbox
       --enable-hwaccel=mpeg2_videotoolbox
       --enable-hwaccel=mpeg4_videotoolbox
       --enable-libaom
+      --enable-libaribb24
+      --enable-libaribcaption
       --enable-libass
       --enable-libbluray
+      --enable-libbs2b
+      --enable-libcaca
       --enable-libdav1d
       --enable-libfdk-aac
       --enable-libfontconfig
       --enable-libfreetype
       --enable-libfribidi
+      --enable-libgme
       --enable-libgsm
       --enable-libharfbuzz
+      --enable-libjxl
       --enable-libmodplug
       --enable-libmp3lame
       --enable-libopencore-amrnb
       --enable-libopencore-amrwb
       --enable-libopenh264
       --enable-libopenjpeg
+      --enable-libopenmpt
+      --enable-libopenvino
       --enable-libopus
+      --enable-librav1e
+      --enable-librist
+      --enable-librsvg
       --enable-librtmp
       --enable-librubberband
       --enable-libsnappy
       --enable-libsoxr
       --enable-libspeex
       --enable-libsrt
+      --enable-libssh
+      --enable-libsvtav1
+      --enable-libtensorflow
       --enable-libtesseract
       --enable-libtheora
       --enable-libtwolame
       --enable-libvidstab
+      --enable-libvmaf
       --enable-libvorbis
       --enable-libvpx
       --enable-libwebp
@@ -286,12 +323,12 @@ class FfmpegSkyzyx < Formula
       --enable-nonfree
       --enable-openal
       --enable-opencl
+      --enable-openssl
       --enable-pthreads
       --enable-shared
       --enable-version3
       --enable-videotoolbox
       --enable-vulkan
-      --extra-version=skyzyx
       --cc=#{ENV.cc}
       --cxx=#{ENV.cxx}
       --extra-cflags="-I#{HOMEBREW_PREFIX}/include"
