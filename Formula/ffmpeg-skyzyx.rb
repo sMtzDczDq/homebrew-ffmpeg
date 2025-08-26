@@ -4,14 +4,14 @@ class FfmpegSkyzyx < Formula
   head "https://github.com/FFmpeg/FFmpeg.git" , branch: "master"
 
   stable do
-    url "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz"
-    sha256 "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1"
+      url "https://ffmpeg.org/releases/ffmpeg-8.0.tar.xz"
+    sha256 "b2751fccb6cc4c77708113cd78b561059b6fa904b24162fa0be2d60273d27b8e"
 
     # Backport support for recent svt-av1 (3.0.0)
-    patch do
-      url "https://github.com/FFmpeg/FFmpeg/commit/d1ed5c06e3edc5f2b5f3664c80121fa55b0baa95.patch?full_index=1"
-      sha256 "0eb23ab90c0e5904590731dd3b81c86a4127785bc2b367267d77723990fb94a2"
-    end
+  #  patch do
+  #    url "https://github.com/FFmpeg/FFmpeg/commit/d1ed5c06e3edc5f2b5f3664c80121fa55b0baa95.patch?full_index=1"
+  #    sha256 "0eb23ab90c0e5904590731dd3b81c86a4127785bc2b367267d77723990fb94a2"
+  #  end
   end
 
   depends_on "pkg-config" => :build
@@ -111,10 +111,10 @@ class FfmpegSkyzyx < Formula
 
   # Fix for QtWebEngine, do not remove
   # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=270209
-  patch do
-    url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
-    sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
-  end
+#  patch do
+#    url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
+#    sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
+#  end
 
   def install
     # Work around Xcode 11 clang bug
@@ -338,6 +338,7 @@ class FfmpegSkyzyx < Formula
       --enable-version3
       --enable-videotoolbox
       --enable-vulkan
+      --enable-vulkan-static
       --cc=#{ENV.cc}
       --cxx=#{ENV.cxx}
       --extra-cflags="-I#{HOMEBREW_PREFIX}/include"
