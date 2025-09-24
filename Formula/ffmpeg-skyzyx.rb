@@ -14,7 +14,7 @@ class FfmpegSkyzyx < Formula
   #  end
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "texi2html" => :build
 
   depends_on "aom"
@@ -67,6 +67,7 @@ class FfmpegSkyzyx < Formula
   depends_on "libxcb"
   depends_on "libxml2"
   depends_on "openal-soft"
+  depends_on "openapv"
   depends_on "opencore-amr"
   depends_on "openh264"
   depends_on "openjpeg"
@@ -90,6 +91,7 @@ class FfmpegSkyzyx < Formula
   depends_on "wavpack"
   depends_on "webp"
   depends_on "wget"
+  depends_on "whisper-cpp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
@@ -331,6 +333,7 @@ class FfmpegSkyzyx < Formula
       --enable-muxer=webvtt
       --enable-nonfree
       --enable-openal
+      --enable-openapv
       --enable-opencl
       --enable-openssl
       --enable-pthreads
@@ -339,6 +342,7 @@ class FfmpegSkyzyx < Formula
       --enable-videotoolbox
       --enable-vulkan
       --enable-vulkan-static
+      --enable-whisper
       --cc=#{ENV.cc}
       --cxx=#{ENV.cxx}
       --extra-cflags="-I#{HOMEBREW_PREFIX}/include"
