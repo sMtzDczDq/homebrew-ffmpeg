@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+xargs="$(brew --prefix findutils)/libexec/gnubin/xargs"
 
 cat <<EOF >"README.md"
 # homebrew-ffmpeg
@@ -47,7 +48,11 @@ GLIB_CFLAGS="-I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include" \\
 GLIB_LIBS="-lglib-2.0 -lgio-2.0" \\
 PKG_CONFIG_PATH=\$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig:/opt/X11/lib/pkgconfig \\
 ./configure \\
+<<<<<<< Updated upstream
 $(gxargs -0 -d '\n' -I% echo "    % " <docs/buildconf.txt)
+=======
+$($xargs -0 -d '\n' -I% echo "    % " < docs/buildconf.txt)
+>>>>>>> Stashed changes
 && make -j\$(nproc) ffmpeg \\
 && make install
 \`\`\`
@@ -56,16 +61,25 @@ $(gxargs -0 -d '\n' -I% echo "    % " <docs/buildconf.txt)
 
 #### Decoding Codecs
 
+<<<<<<< Updated upstream
 $(gxargs -0 -d '\n' <docs/codecs-decode.txt | sed "s/\n/ /g")
 
 #### Decoding Packages
 
 $(gxargs -0 -d '\n' <docs/decoders.txt | sed "s/\n/ /g")
+=======
+$($xargs -0 -d '\n' < docs/codecs-decode.txt | sed "s/\n/ /g")
+
+#### Decoding Packages
+
+$($xargs -0 -d '\n' < docs/decoders.txt | sed "s/\n/ /g")
+>>>>>>> Stashed changes
 
 ### Encode
 
 #### Encoding Codecs
 
+<<<<<<< Updated upstream
 $(gxargs -0 -d '\n' <docs/codecs-encode.txt | sed "s/\n/ /g")
 
 #### Encoding Packages
@@ -91,6 +105,33 @@ $(gxargs -0 -d '\n' <docs/bsfs.txt | sed "s/\n/ /g")
 ### Hardware Acceleration
 
 $(gxargs -0 -d '\n' <docs/hwaccels.txt | sed "s/\n/ /g")
+=======
+$($xargs -0 -d '\n' < docs/codecs-encode.txt | sed "s/\n/ /g")
+
+#### Encoding Packages
+
+$($xargs -0 -d '\n' < docs/encoders.txt | sed "s/\n/ /g")
+
+### Muxers
+
+$($xargs -0 -d '\n' < docs/muxers.txt | sed "s/\n/ /g")
+
+### Demuxers
+
+$($xargs -0 -d '\n' < docs/demuxers.txt | sed "s/\n/ /g")
+
+### Pixel Formats
+
+$($xargs -0 -d '\n' < docs/pix_fmts.txt | sed "s/\n/ /g")
+
+### Bitstream Filters
+
+$($xargs -0 -d '\n' < docs/bsfs.txt | sed "s/\n/ /g")
+
+### Hardware Acceleration
+
+$($xargs -0 -d '\n' < docs/hwaccels.txt | sed "s/\n/ /g")
+>>>>>>> Stashed changes
 
 ## Documentation
 
