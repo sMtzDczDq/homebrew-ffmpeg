@@ -271,6 +271,7 @@ class FfmpegSkyzyx < Formula
       --enable-libjxl
       --enable-libmodplug
       --enable-libmp3lame
+      --enable-liboapv
       --enable-libopencore-amrnb
       --enable-libopencore-amrwb
       --enable-libopenh264
@@ -333,7 +334,6 @@ class FfmpegSkyzyx < Formula
       --enable-muxer=webvtt
       --enable-nonfree
       --enable-openal
-      --enable-openapv
       --enable-opencl
       --enable-openssl
       --enable-pthreads
