@@ -91,7 +91,7 @@ class FfmpegSkyzyx < Formula
   depends_on "wavpack"
   depends_on "webp"
   depends_on "wget"
-  depends_on "whisper-cpp"
+#  depends_on "whisper-cpp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
@@ -342,7 +342,6 @@ class FfmpegSkyzyx < Formula
       --enable-videotoolbox
       --enable-vulkan
       --enable-vulkan-static
-      --enable-whisper
       --cc=#{ENV.cc}
       --cxx=#{ENV.cxx}
       --extra-cflags="-I#{HOMEBREW_PREFIX}/include"
