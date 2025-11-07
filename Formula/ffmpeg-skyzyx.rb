@@ -113,12 +113,15 @@ class FfmpegSkyzyx < Formula
 
   # Fix for QtWebEngine, do not remove
   # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=270209
-#  patch do
-#    url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
-#    sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
-#  end
+  patch do
+    url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
+    sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
+      end
 
   def install
+      # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
+    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.ld64_version.between?("1015.7", "1022.1")
+
     # Work around Xcode 11 clang bug
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     # https://trac.ffmpeg.org/ticket/8073#comment:12
@@ -154,7 +157,6 @@ class FfmpegSkyzyx < Formula
       --disable-libjack
       --disable-podpages
       --disable-txtpages
-      --enable-audiotoolbox
       --enable-chromaprint
       --enable-decoder=aac
       --enable-decoder=ac3
@@ -339,7 +341,6 @@ class FfmpegSkyzyx < Formula
       --enable-pthreads
       --enable-shared
       --enable-version3
-      --enable-videotoolbox
       --enable-vulkan
       --enable-vulkan-static
       --cc=#{ENV.cc}
@@ -349,8 +350,8 @@ class FfmpegSkyzyx < Formula
       --host-cflags=#{ENV.cflags}
       --host-ldflags=#{ENV.ldflags}
     ]
-
-    args << "--enable-neon" if OS.mac? && Hardware::CPU.arm?
+    args += %w[--enable-videotoolbox --enable-audiotoolbox] if OS.mac?
+    args << "--enable-neon" if Hardware::CPU.arm?
 
     system "./configure", *args
     system "make", "install"
