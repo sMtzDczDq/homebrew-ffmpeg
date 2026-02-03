@@ -34,7 +34,7 @@ permissions:
 
 jobs:
   tap_syntax:
-    if: github.repository_owner != 'Homebrew'
+    #    if: github.repository_owner == 'Homebrew'
     strategy:
       matrix:
         stable: [false, true]
@@ -64,7 +64,7 @@ jobs:
       - run: brew test-bot --only-tap-syntax ${{ matrix.stable && '--stable' || '' }}
 
   formulae_detect:
-    if: github.repository_owner != 'Homebrew' && github.event_name != 'push'
+    #   if: github.repository_owner == 'Homebrew' && github.event_name != 'push'
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/homebrew/ubuntu22.04:main
@@ -95,7 +95,7 @@ jobs:
   report_analytics:
     runs-on: ubuntu-slim
     needs: formulae_detect
-    if: github.repository_owner != 'Homebrew' && github.event_name == 'pull_request'
+    #    if: github.repository_owner == 'Homebrew' && github.event_name == 'pull_request'
     steps:
       - name: Publish Analytics to Summary
         env:
@@ -131,7 +131,7 @@ jobs:
   setup_tests:
     permissions:
       pull-requests: read
-    if: github.repository_owner != 'Homebrew' && github.event_name == 'pull_request'
+    #   if: github.repository_owner == 'Homebrew' && github.event_name == 'pull_request'
     runs-on: ubuntu-slim
     needs: formulae_detect
     outputs:
@@ -259,7 +259,7 @@ jobs:
   setup_dep_tests:
     permissions:
       pull-requests: read
-    if: github.repository_owner != 'Homebrew' && github.event_name == 'pull_request'
+    #   if: github.repository_owner == 'Homebrew' && github.event_name == 'pull_request'
     runs-on: ubuntu-slim
     needs: [setup_tests, formulae_detect]
     outputs:
