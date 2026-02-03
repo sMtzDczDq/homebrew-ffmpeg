@@ -1,9 +1,9 @@
 class FfmpegSkyzyx < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
   url "https://ffmpeg.org/releases/ffmpeg-8.0.1.tar.xz"
   sha256 "05ee0b03119b45c0bdb4df654b96802e909e0a752f72e4fe3794f487229e5a41"
+  head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
 
   depends_on "pkgconf" => :build
   depends_on "texi2html" => :build
