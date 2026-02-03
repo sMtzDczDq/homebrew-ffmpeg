@@ -34,7 +34,7 @@ permissions:
 
 jobs:
   tap_syntax:
-    if: github.repository_owner == 'Homebrew'
+    if: github.repository_owner != 'Homebrew'
     strategy:
       matrix:
         stable: [false, true]
