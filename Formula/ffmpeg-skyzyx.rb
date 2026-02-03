@@ -1,18 +1,9 @@
 class FfmpegSkyzyx < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  head "https://github.com/FFmpeg/FFmpeg.git" , branch: "master"
-
-  stable do
-    url "https://ffmpeg.org/releases/ffmpeg-8.0.1.tar.xz"
-    sha256 "05ee0b03119b45c0bdb4df654b96802e909e0a752f72e4fe3794f487229e5a41"
-
-    # Backport support for recent svt-av1 (3.0.0)
-  #  patch do
-  #    url "https://github.com/FFmpeg/FFmpeg/commit/d1ed5c06e3edc5f2b5f3664c80121fa55b0baa95.patch?full_index=1"
-  #    sha256 "0eb23ab90c0e5904590731dd3b81c86a4127785bc2b367267d77723990fb94a2"
-  #  end
-  end
+  head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
+  url "https://ffmpeg.org/releases/ffmpeg-8.0.1.tar.xz"
+  sha256 "05ee0b03119b45c0bdb4df654b96802e909e0a752f72e4fe3794f487229e5a41"
 
   depends_on "pkgconf" => :build
   depends_on "texi2html" => :build
@@ -26,8 +17,8 @@ class FfmpegSkyzyx < Formula
   depends_on "dwarf"
   depends_on "dwarfutils"
   depends_on "faac"
-  depends_on "fdk-aac-encoder"
   depends_on "fdk-aac"
+  depends_on "fdk-aac-encoder"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -77,8 +68,8 @@ class FfmpegSkyzyx < Formula
   depends_on "rav1e"
   depends_on "rtmpdump"
   depends_on "rubberband"
-  depends_on "sdl2"
   depends_on "sdl12-compat"
+  depends_on "sdl2"
   depends_on "shtool"
   depends_on "snappy"
   depends_on "speex"
@@ -91,7 +82,7 @@ class FfmpegSkyzyx < Formula
   depends_on "wavpack"
   depends_on "webp"
   depends_on "wget"
-#  depends_on "whisper-cpp"
+  depends_on "whisper-cpp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
@@ -101,8 +92,8 @@ class FfmpegSkyzyx < Formula
   depends_on "zimg"
 
   uses_from_macos "bzip2"
-  uses_from_macos "libxml2"
   uses_from_macos "libiconv"
+  uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
   on_intel do
@@ -116,20 +107,26 @@ class FfmpegSkyzyx < Formula
   patch do
     url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
     sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
-      end
+  end
+
+  # Add svt-av1 4.x support
+  patch do
+    url "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/a5d4c398b411a00ac09d8fe3b66117222323844c"
+    sha256 "1dbbc1a4cf9834b3902236abc27fefe982da03a14bcaa89fb90c7c8bd10a1664"
+  end
 
   def install
-      # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
+    # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
     ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.ld64_version.between?("1015.7", "1022.1")
 
     # Work around Xcode 11 clang bug
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     # https://trac.ffmpeg.org/ticket/8073#comment:12
-   # ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
+    # ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
 
     # Work around Xcode 15 bug
     # https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/commit/52b300990077c719e64311cea0b763bf83a4e2f7
-   # ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+    # ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     # # FreeType
     # ENV.append_to_cflags `freetype-config --cflags`
@@ -366,6 +363,6 @@ class FfmpegSkyzyx < Formula
     # Create an example mp4 file
     mp4out = testpath/"video.mp4"
     system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=1", mp4out
-    assert_predicate mp4out, :exist?
+    assert_path_exists mp4out
   end
 end
