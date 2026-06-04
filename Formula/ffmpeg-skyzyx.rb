@@ -5,6 +5,8 @@ class FfmpegSkyzyx < Formula
   sha256 "b6863adde98898f42602017462871b5f6333e65aec803fdd7a6308639c52edf3"
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
 
+  keg_only :versioned_formula
+
   depends_on "pkgconf" => :build
   depends_on "texi2html" => :build
 
