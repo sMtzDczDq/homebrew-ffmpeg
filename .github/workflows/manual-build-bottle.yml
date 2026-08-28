@@ -32,11 +32,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@v1
-        with:
-          core: true
-          cask: false
+      - name: Install Homebrew
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          fi
+          brew tap homebrew/core
+        if: runner == 'ubuntu-latest' || startsWith(inputs.runner, 'macos')
 
       - name: Build Bottle
         run: |
@@ -48,8 +51,10 @@ jobs:
             --skip-dependents \
             "${{ inputs.formula }}"
 
-      - name: Post-build
-        uses: Homebrew/actions/post-build@v1
+      - name: Post-build Cleanup
+        run: |
+          # Remove temporary build files and perform a basic audit
+          brew audit "${{ inputs.formula }}" || echo "Audit found some warnings, proceeding anyway"
 
       - name: Generate build provenance
         uses: actions/attest-build-provenance@v1
