@@ -27,7 +27,7 @@ env:
 jobs:
   bottle:
     runs-on: ${{ inputs.runner }}
-    timeout-minutes: ${{ inputs.timeout || 60 }}
+    timeout-minutes: ${{ inputs.timeout }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
