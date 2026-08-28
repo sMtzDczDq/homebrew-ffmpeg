@@ -1,0 +1,57 @@
+name: Manual Bottle Build
+
+run-name: Build bottle of ${{ inputs.formula }} on ${{ inputs.runner }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: Build runner (e.g., macos-14, ubuntu-latest)
+        required: true
+      formula:
+        description: Formula name
+        required: true
+      timeout:
+        description: "Build timeout (in minutes)"
+        type: number
+        default: 60
+        required: false
+
+env:
+  HOMEBREW_DEVELOPER: 1
+  HOMEBREW_GITHUB_ACTIONS: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+  HOMEBREW_NO_BUILD_ERROR_ISSUES: 1
+
+jobs:
+  bottle:
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: ${{ inputs.timeout || 60 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Homebrew
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          fi
+        if: runner == 'ubuntu-latest' || startsWith(inputs.runner, 'macos')
+
+      - name: Build Bottle
+        run: |
+          brew test-bot \
+            --only-formulae \
+            --keep-old \
+            --only-json-tab \
+            --skip-online-checks \
+            --skip-dependents \
+            "${{ inputs.formula }}"
+
+      - name: Upload Bottles
+        uses: actions/upload-artifact@v4
+        with:
+          name: bottles-${{ inputs.formula }}
+          path: bottles/
