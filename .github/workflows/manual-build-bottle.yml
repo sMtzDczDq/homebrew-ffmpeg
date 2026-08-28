@@ -27,18 +27,16 @@ env:
 jobs:
   bottle:
     runs-on: ${{ inputs.runner }}
-    timeout-minutes: ${{ inputs.timeout }}
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Homebrew
-        run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          fi
-        if: runner == 'ubuntu-latest' || startsWith(inputs.runner, 'macos')
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@v1
+        with:
+          core: true
+          cask: false
 
       - name: Build Bottle
         run: |
@@ -49,6 +47,14 @@ jobs:
             --skip-online-checks \
             --skip-dependents \
             "${{ inputs.formula }}"
+
+      - name: Post-build
+        uses: Homebrew/actions/post-build@v1
+
+      - name: Generate build provenance
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: 'bottles/'
 
       - name: Upload Bottles
         uses: actions/upload-artifact@v4
